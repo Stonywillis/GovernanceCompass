@@ -1,41 +1,78 @@
-# Azure Governance Compass
+Governance Compass — README (Full Draft)
+Purpose
+Governance Compass is a hands‑on, scenario‑driven guide to Azure governance. It translates abstract concepts like management groups, RBAC, policy, and resource organization into clear, repeatable patterns you can use in real environments. The goal is to help engineers move from “I know the terms” to “I can design and justify a governance model.”
+What This Project Solves
+Cloud governance often fails because teams:
+- Don’t know where to start
+- Mix operational tasks with governance decisions
+- Apply policies reactively instead of intentionally
+- Struggle to explain why a structure exists
+Governance Compass provides a structured, opinionated path that removes guesswork and builds confidence.
+Who This Is For
+- Engineers preparing for AZ‑104 or AZ‑305
+- Teams building a new Azure landing zone
+- Anyone who needs to justify governance decisions to leadership
+- People who learn best through hands‑on labs and clear mental models
+Core Principles
+- Least privilege by design — RBAC is a product of structure, not a patch.
+- Policy before deployment — guardrails first, resources second.
+- Separation of concerns — identity, governance, and operations are distinct layers.
+- Repeatability — everything should be reproducible through IaC or documented patterns.
+- Clarity over complexity — governance should be explainable in one diagram.
 
-The Azure Governance Compass is an interactive decision engine that generates a recommended governance model based on an organisation’s size, structure, compliance needs, and cloud maturity. It is designed to make Azure governance intuitive by turning architectural judgement into a set of clear, explainable recommendations.
+Repository Structure
+/docs
+Concept explanations, diagrams, and decision guides:
+- Management group hierarchy patterns
+- RBAC role mapping
+- Policy and initiative design
+- Naming and tagging standards
+- Landing zone governance models
+/labs
+Hands‑on exercises:
+- Build a management group hierarchy
+- Assign RBAC roles using least privilege
+- Deploy and test Azure Policy
+- Create a governance baseline for a new subscription
+- Validate compliance and remediation
+/reference
+Quick‑lookup sheets:
+- Common RBAC roles
+- Policy definitions
+- Initiative templates
+- Governance anti‑patterns
+/examples
+Realistic governance scenarios:
+- University environment
+- Multi‑team enterprise
+- Dev/Test/Prod separation
+- Mergers and acquisitions
+- Greenfield vs brownfield governance
 
-## Purpose
+How to Use This Project
+1. Start with the mental model
+Read the Governance Compass Overview to understand the four pillars:
+- Structure
+- Identity
+- Policy
+- Operations
+2. Build your baseline
+Follow the labs to create a working governance foundation.
+3. Apply patterns to your environment
+Use the examples to map your real‑world scenario to a governance model.
+4. Validate and iterate
+Use the reference sheets and checklists to confirm your design is consistent.
 
-Azure governance is often presented as a static checklist. In reality, it is a set of decisions shaped by organisational context. This project encodes those decisions into logic, producing:
+Why This Project Exists
+Governance is often treated as a blocker or a compliance burden. Governance Compass reframes it as:
+- A design discipline
+- A communication tool
+- A safety net
+- A scaling mechanism
+It helps engineers build confidence, articulate decisions, and avoid the “just wing it” trap that leads to chaos later.
 
-- A suggested management group hierarchy  
-- Policy and initiative bundles  
-- RBAC patterns  
-- Naming and tagging conventions  
-- Logging and monitoring layout  
-- Landing zone recommendations  
 
-Each recommendation includes a short explanation to help users understand *why* it was chosen.
 
-## How it works
-
-The Governance Compass takes a small set of inputs describing the organisation:
-
-- Organisation size  
-- Regulatory requirements  
-- Team structure  
-- Deployment model  
-- Identity boundaries  
-- Cloud maturity  
-
-These inputs are processed by a rule-based decision engine. The engine outputs a governance model and a visual representation of the recommended hierarchy.
-
-## Project structure
-
-## Roadmap
-
-- Add export to Bicep/Terraform  
-- Add governance archetypes (startup, enterprise, regulated, research)  
-- Add maturity scoring  
-- Add common pitfalls and anti-patterns  
 
 ## License
 
