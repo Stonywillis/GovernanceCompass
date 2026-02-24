@@ -1,8 +1,19 @@
 
+h1, h2, h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 2rem;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  margin: 40px;
-  max-width: 800px;
+    font-family: 'Cinzel', serif;
+    text-align: left;
+    background-image: url("lava1dark.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: repeat;
+    background-color: black;
+    color: orange;
+    margin-top: 5%;
 }
 
 label {
