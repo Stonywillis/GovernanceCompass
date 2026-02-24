@@ -29,3 +29,14 @@ The Governance Compass takes a small set of inputs describing the organisation:
 These inputs are processed by a rule-based decision engine. The engine outputs a governance model and a visual representation of the recommended hierarchy.
 
 ## Project structure
+
+## Roadmap
+
+- Add export to Bicep/Terraform  
+- Add governance archetypes (startup, enterprise, regulated, research)  
+- Add maturity scoring  
+- Add common pitfalls and anti-patterns  
+
+## License
+
+MIT License
