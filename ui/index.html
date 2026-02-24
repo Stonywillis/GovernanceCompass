@@ -1,1 +1,48 @@
 
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Azure Governance Compass</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>Azure Governance Compass</h1>
+
+  <form id="govForm">
+    <label>Organisation Size</label>
+    <select name="size">
+      <option value="small">Small</option>
+      <option value="medium">Medium</option>
+      <option value="large">Large</option>
+    </select>
+
+    <label>Compliance Level</label>
+    <select name="compliance">
+      <option value="low">Low</option>
+      <option value="moderate">Moderate</option>
+      <option value="high">High</option>
+    </select>
+
+    <button type="submit">Generate Model</button>
+  </form>
+
+  <div id="output"></div>
+
+  <script src="../logic/engine.js"></script>
+  <script>
+    document.getElementById('govForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const inputs = Object.fromEntries(formData.entries());
+      const result = await evaluateGovernance(inputs);
+
+      document.getElementById('output').innerHTML = `
+        <h2>Recommended Management Group Structure</h2>
+        <pre>${JSON.stringify(result.managementGroups, null, 2)}</pre>
+        <h3>Explanation</h3>
+        <p>${result.explanations.join('<br>')}</p>
+      `;
+    });
+  </script>
+</body>
+</html>

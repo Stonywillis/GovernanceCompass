@@ -1,1 +1,20 @@
 
+{
+  "managementGroups": [
+    {
+      "condition": { "size": "small", "compliance": "low" },
+      "structure": ["Root", "LandingZones", "Sandbox"],
+      "explanation": "Small organisations with low compliance needs benefit from a simple hierarchy that reduces overhead."
+    },
+    {
+      "condition": { "size": "medium" },
+      "structure": ["Root", "Platform", "LandingZones", "Sandbox"],
+      "explanation": "Medium organisations require separation between platform services and workloads."
+    },
+    {
+      "condition": { "compliance": "high" },
+      "structure": ["Root", "Platform", "Identity", "Management", "LandingZones", "Sandbox"],
+      "explanation": "High compliance environments need dedicated identity and management groups for audit and control."
+    }
+  ]
+}
