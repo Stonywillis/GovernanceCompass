@@ -1,20 +1,165 @@
-
 {
   "managementGroups": [
     {
-      "condition": { "size": "small", "compliance": "low" },
+      "condition": { "maturity": "early" },
       "structure": ["Root", "LandingZones", "Sandbox"],
-      "explanation": "Small organisations with low compliance needs benefit from a simple hierarchy that reduces overhead."
+      "explanation": "Early-stage cloud adoption benefits from a minimal hierarchy to reduce operational complexity."
     },
     {
-      "condition": { "size": "medium" },
+      "condition": { "maturity": "developing" },
       "structure": ["Root", "Platform", "LandingZones", "Sandbox"],
-      "explanation": "Medium organisations require separation between platform services and workloads."
+      "explanation": "Developing cloud maturity introduces the need for a Platform group to centralise shared services."
+    },
+    {
+      "condition": { "maturity": "mature" },
+      "structure": ["Root", "Platform", "Identity", "Management", "LandingZones", "Sandbox"],
+      "explanation": "Mature cloud environments require clear separation of duties across platform, identity, and management boundaries."
+    },
+    {
+      "condition": { "teamStructure": "federated" },
+      "structure": ["Root", "Platform", "LandingZones", "Sandbox"],
+      "explanation": "Federated teams benefit from a Landing Zone per business unit, enabling autonomy while maintaining central governance."
+    },
+    {
+      "condition": { "teamStructure": "centralised" },
+      "structure": ["Root", "Platform", "Management", "LandingZones"],
+      "explanation": "Centralised teams can operate with a more streamlined hierarchy while still separating platform and management functions."
+    },
+    {
+      "condition": { "identity": "multi-tenant" },
+      "structure": ["Root", "Identity"],
+      "explanation": "Multi-tenant identity boundaries require a dedicated Identity management group to isolate directory integration and privileged access."
+    },
+    {
+      "condition": { "identity": "hybrid" },
+      "structure": ["Root", "Platform", "Identity"],
+      "explanation": "Hybrid identity environments benefit from a dedicated Identity group to manage AAD Connect, Entra ID, and authentication boundaries."
+    },
+    {
+      "condition": { "deployment": "IaC" },
+      "structure": ["Root", "Platform", "LandingZones"],
+      "explanation": "Infrastructure-as-Code environments benefit from a clear separation between platform and workload landing zones to support automated deployments."
+    },
+    {
+      "condition": { "deployment": "GitOps" },
+      "structure": ["Root", "Platform", "Identity", "Management", "LandingZones"],
+      "explanation": "GitOps requires strong separation of duties and clear boundaries for policy enforcement and workload identity."
+    },
+    {
+      "condition": { "security": "high" },
+      "structure": ["Root", "Platform", "Identity", "Management"],
+      "explanation": "High-security environments require dedicated Management and Identity groups to support audit, monitoring, and privileged access controls."
+    },
+    {
+      "condition": { "networking": "hub-spoke" },
+      "structure": ["Root", "Platform"],
+      "explanation": "Hub-and-spoke networking centralises shared services, making the Platform group essential for network governance."
+    },
+    {
+      "condition": { "networking": "vwan" },
+      "structure": ["Root", "Platform", "Management"],
+      "explanation": "Virtual WAN deployments benefit from a dedicated Management group to handle centralised routing, security, and monitoring."
+    }
+  ],
+
+  "policyBundles": [
+    {
+      "condition": { "compliance": "low" },
+      "bundles": ["SecurityBaseline", "CostControls", "TaggingMinimum"],
+      "explanation": "Low-compliance environments benefit from lightweight guardrails that enforce basic security, cost visibility, and minimal tagging."
+    },
+    {
+      "condition": { "compliance": "moderate" },
+      "bundles": ["SecurityBaseline", "IdentityHardening", "CostControls", "TaggingStandard"],
+      "explanation": "Moderate compliance requires stronger identity controls and more consistent tagging to support audit and reporting."
     },
     {
       "condition": { "compliance": "high" },
-      "structure": ["Root", "Platform", "Identity", "Management", "LandingZones", "Sandbox"],
-      "explanation": "High compliance environments need dedicated identity and management groups for audit and control."
+      "bundles": ["SecurityBaseline", "IdentityHardening", "ComplianceFrameworks", "CostControls", "TaggingStrict", "NetworkingGovernance"],
+      "explanation": "High-compliance organisations require mandatory initiatives such as NIST/CIS, strict tagging, and strong identity and networking governance."
+    },
+    {
+      "condition": { "maturity": "early" },
+      "bundles": ["SecurityBaseline", "TaggingMinimum"],
+      "explanation": "Early cloud maturity calls for minimal viable governance to avoid overwhelming teams while still enforcing essential guardrails."
+    },
+    {
+      "condition": { "maturity": "developing" },
+      "bundles": ["SecurityBaseline", "IdentityHardening", "CostControls", "TaggingStandard"],
+      "explanation": "Developing maturity benefits from consistent tagging, identity controls, and cost visibility as cloud usage grows."
+    },
+    {
+      "condition": { "maturity": "mature" },
+      "bundles": ["SecurityBaseline", "IdentityHardening", "ComplianceFrameworks", "CostControls", "TaggingStrict", "NetworkingGovernance", "PlatformGovernance"],
+      "explanation": "Mature cloud environments require comprehensive governance across identity, compliance, networking, and platform services."
+    },
+    {
+      "condition": { "deployment": "manual" },
+      "bundles": ["SecurityBaseline", "TaggingMinimum"],
+      "explanation": "Manual deployment models require lightweight guardrails to avoid friction while still enforcing essential security and tagging."
+    },
+    {
+      "condition": { "deployment": "IaC" },
+      "bundles": ["SecurityBaseline", "IdentityHardening", "TaggingStandard", "PlatformGovernance"],
+      "explanation": "Infrastructure-as-Code environments benefit from platform governance and identity controls to support automated deployments."
+    },
+    {
+      "condition": { "deployment": "GitOps" },
+      "bundles": ["SecurityBaseline", "IdentityHardening", "ComplianceFrameworks", "PlatformGovernance", "NetworkingGovernance"],
+      "explanation": "GitOps requires strong identity, compliance, and platform governance to support separation of duties and workload identity."
+    },
+    {
+      "condition": { "security": "high" },
+      "bundles": ["SecurityBaseline", "IdentityHardening", "NetworkingGovernance", "ComplianceFrameworks"],
+      "explanation": "High-security environments require strict identity, networking, and compliance guardrails to support audit and threat protection."
+    },
+    {
+      "condition": { "identity": "multi-tenant" },
+      "bundles": ["IdentityHardening", "ComplianceFrameworks"],
+      "explanation": "Multi-tenant identity boundaries require strong identity governance and compliance frameworks to manage cross-tenant risk."
+    }
+  ],
+  
+  "rbacPatterns": [
+    {
+      "condition": { "teamStructure": "centralised" },
+      "patterns": ["PlatformOpsOwnership", "LeastPrivilegeEnforcement", "SecurityOpsVisibility"],
+      "explanation": "Centralised teams benefit from strong platform ownership and least privilege enforcement to maintain consistency and control."
+    },
+    {
+      "condition": { "teamStructure": "federated" },
+      "patterns": ["LandingZoneDelegation", "DeploymentPipelineRoles", "CostManagementDelegation"],
+      "explanation": "Federated teams require autonomy in their landing zones, with delegated cost visibility and scoped deployment identities."
+    },
+    {
+      "condition": { "maturity": "early" },
+      "patterns": ["PlatformOpsOwnership", "LeastPrivilegeEnforcement"],
+      "explanation": "Early cloud maturity calls for simple RBAC patterns with centralised control to avoid misconfiguration."
+    },
+    {
+      "condition": { "maturity": "developing" },
+      "patterns": ["PlatformOpsOwnership", "LandingZoneDelegation", "SecurityOpsVisibility"],
+      "explanation": "Developing maturity introduces the need for workload team autonomy while maintaining platform and security oversight."
+    },
+    {
+      "condition": { "maturity": "mature" },
+      "patterns": ["StrictSeparationOfDuties", "IdentityAdminIsolation", "DeploymentPipelineRoles", "BreakGlassAccounts"],
+      "explanation": "Mature environments require strict separation of duties, isolated identity admin roles, and controlled emergency access."
+    },
+    {
+      "condition": { "security": "high" },
+      "patterns": ["StrictSeparationOfDuties", "IdentityAdminIsolation", "SecurityOpsVisibility", "BreakGlassAccounts"],
+      "explanation": "High-security environments demand strong separation of duties, isolated identity roles, and monitored break-glass access."
+    },
+    {
+      "condition": { "deployment": "IaC" },
+      "patterns": ["DeploymentPipelineRoles", "LeastPrivilegeEnforcement"],
+      "explanation": "IaC environments benefit from scoped deployment identities and strict least privilege to reduce drift and risk."
+    },
+    {
+      "condition": { "deployment": "GitOps" },
+      "patterns": ["DeploymentPipelineRoles", "StrictSeparationOfDuties", "IdentityAdminIsolation"],
+      "explanation": "GitOps requires strong separation between deployment identities, platform roles, and identity administration."
     }
   ]
 }

@@ -1,0 +1,115 @@
+{
+  "examples": [
+    {
+      "name": "Small Startup, Early Cloud Maturity",
+      "inputs": {
+        "size": "small",
+        "compliance": "low",
+        "maturity": "early",
+        "teamStructure": "centralised",
+        "identity": "single-tenant",
+        "deployment": "manual",
+        "security": "low",
+        "networking": "hub-spoke"
+      },
+      "expected": {
+        "managementGroups": ["Root", "LandingZones", "Sandbox"],
+        "policyBundles": ["SecurityBaseline", "TaggingMinimum"],
+        "rbacPatterns": ["PlatformOpsOwnership", "LeastPrivilegeEnforcement"],
+        "diagram": {
+          "nodes": [
+            { "id": "Root", "label": "Root" },
+            { "id": "LandingZones", "label": "LandingZones" },
+            { "id": "Sandbox", "label": "Sandbox" }
+          ],
+          "edges": [
+            { "from": "Root", "to": "LandingZones" },
+            { "from": "Root", "to": "Sandbox" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Medium Organisation, Developing Maturity",
+      "inputs": {
+        "size": "medium",
+        "compliance": "moderate",
+        "maturity": "developing",
+        "teamStructure": "federated",
+        "identity": "hybrid",
+        "deployment": "IaC",
+        "security": "moderate",
+        "networking": "hub-spoke"
+      },
+      "expected": {
+        "managementGroups": ["Root", "Platform", "Identity", "LandingZones", "Sandbox"],
+        "policyBundles": ["SecurityBaseline", "IdentityHardening", "CostControls", "TaggingStandard"],
+        "rbacPatterns": ["PlatformOpsOwnership", "LandingZoneDelegation", "SecurityOpsVisibility"],
+        "diagram": {
+          "nodes": [
+            { "id": "Root", "label": "Root" },
+            { "id": "Platform", "label": "Platform" },
+            { "id": "Identity", "label": "Identity" },
+            { "id": "LandingZones", "label": "LandingZones" },
+            { "id": "Sandbox", "label": "Sandbox" }
+          ],
+          "edges": [
+            { "from": "Root", "to": "Platform" },
+            { "from": "Root", "to": "Identity" },
+            { "from": "Root", "to": "LandingZones" },
+            { "from": "Root", "to": "Sandbox" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Large Enterprise, High Compliance, Mature Cloud",
+      "inputs": {
+        "size": "large",
+        "compliance": "high",
+        "maturity": "mature",
+        "teamStructure": "centralised",
+        "identity": "multi-tenant",
+        "deployment": "GitOps",
+        "security": "high",
+        "networking": "vwan"
+      },
+      "expected": {
+        "managementGroups": ["Root", "Platform", "Identity", "Management", "LandingZones", "Sandbox"],
+        "policyBundles": [
+          "SecurityBaseline",
+          "IdentityHardening",
+          "ComplianceFrameworks",
+          "CostControls",
+          "TaggingStrict",
+          "NetworkingGovernance",
+          "PlatformGovernance"
+        ],
+        "rbacPatterns": [
+          "StrictSeparationOfDuties",
+          "IdentityAdminIsolation",
+          "DeploymentPipelineRoles",
+          "SecurityOpsVisibility",
+          "BreakGlassAccounts"
+        ],
+        "diagram": {
+          "nodes": [
+            { "id": "Root", "label": "Root" },
+            { "id": "Platform", "label": "Platform" },
+            { "id": "Identity", "label": "Identity" },
+            { "id": "Management", "label": "Management" },
+            { "id": "LandingZones", "label": "LandingZones" },
+            { "id": "Sandbox", "label": "Sandbox" }
+          ],
+          "edges": [
+            { "from": "Root", "to": "Platform" },
+            { "from": "Root", "to": "Identity" },
+            { "from": "Root", "to": "Management" },
+            { "from": "Root", "to": "LandingZones" },
+            { "from": "Root", "to": "Sandbox" }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,48 +1,151 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Azure Governance Compass</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <title>Governance Compass</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      max-width: 900px;
+    }
+    h2 {
+      margin-top: 40px;
+    }
+    .form-section {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    select {
+      width: 300px;
+      padding: 6px;
+      margin-top: 4px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+    .output-section {
+      margin-top: 40px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      background: #fafafa;
+    }
+    pre {
+      background: #eee;
+      padding: 10px;
+      overflow-x: auto;
+    }
+  </style>
 </head>
+
 <body>
-  <h1>Azure Governance Compass</h1>
 
-  <form id="govForm">
-    <label>Organisation Size</label>
-    <select name="size">
-      <option value="small">Small</option>
-      <option value="medium">Medium</option>
-      <option value="large">Large</option>
-    </select>
+  <h1>Governance Compass</h1>
 
-    <label>Compliance Level</label>
-    <select name="compliance">
-      <option value="low">Low</option>
-      <option value="moderate">Moderate</option>
-      <option value="high">High</option>
-    </select>
+  <form id="governanceForm">
 
-    <button type="submit">Generate Model</button>
+    <div class="form-section">
+      <label for="maturity">Cloud Maturity</label>
+      <select id="maturity" name="maturity">
+        <option value="early">Early</option>
+        <option value="developing">Developing</option>
+        <option value="mature">Mature</option>
+      </select>
+
+      <label for="compliance">Compliance Level</label>
+      <select id="compliance" name="compliance">
+        <option value="low">Low</option>
+        <option value="moderate">Moderate</option>
+        <option value="high">High</option>
+      </select>
+
+      <label for="teamStructure">Team Structure</label>
+      <select id="teamStructure" name="teamStructure">
+        <option value="centralised">Centralised</option>
+        <option value="federated">Federated</option>
+      </select>
+
+      <label for="identity">Identity Model</label>
+      <select id="identity" name="identity">
+        <option value="single-tenant">Single Tenant</option>
+        <option value="multi-tenant">Multi-Tenant</option>
+        <option value="hybrid">Hybrid</option>
+      </select>
+
+      <label for="deployment">Deployment Model</label>
+      <select id="deployment" name="deployment">
+        <option value="manual">Manual</option>
+        <option value="IaC">Infrastructure as Code</option>
+        <option value="GitOps">GitOps</option>
+      </select>
+
+      <label for="security">Security Level</label>
+      <select id="security" name="security">
+        <option value="low">Low</option>
+        <option value="moderate">Moderate</option>
+        <option value="high">High</option>
+      </select>
+
+      <label for="networking">Networking Model</label>
+      <select id="networking" name="networking">
+        <option value="hub-spoke">Hub & Spoke</option>
+        <option value="vwan">Virtual WAN</option>
+      </select>
+
+      <label for="size">Organisation Size</label>
+      <select id="size" name="size">
+        <option value="small">Small</option>
+        <option value="medium">Medium</option>
+        <option value="large">Large</option>
+      </select>
+    </div>
+
+    <button type="submit">Evaluate Governance</button>
   </form>
 
-  <div id="output"></div>
+  <div class="output-section">
+    <h2>Management Group Hierarchy</h2>
+    <pre id="mgOutput"></pre>
+
+    <h2>Policy Bundles</h2>
+    <pre id="policyOutput"></pre>
+
+    <h2>RBAC Patterns</h2>
+    <pre id="rbacOutput"></pre>
+
+    <h2>Diagram Model</h2>
+    <pre id="diagramOutput"></pre>
+  </div>
 
   <script src="../logic/engine.js"></script>
   <script>
-    document.getElementById('govForm').addEventListener('submit', async (e) => {
+    document.getElementById("governanceForm").addEventListener("submit", async (e) => {
       e.preventDefault();
+
       const formData = new FormData(e.target);
       const inputs = Object.fromEntries(formData.entries());
-      const result = await evaluateGovernance(inputs);
 
-      document.getElementById('output').innerHTML = `
-        <h2>Recommended Management Group Structure</h2>
-        <pre>${JSON.stringify(result.managementGroups, null, 2)}</pre>
-        <h3>Explanation</h3>
-        <p>${result.explanations.join('<br>')}</p>
-      `;
+      const result = await evaluateAll(inputs);
+
+      document.getElementById("mgOutput").textContent =
+        JSON.stringify(result.mg, null, 2);
+
+      document.getElementById("policyOutput").textContent =
+        JSON.stringify(result.pb, null, 2);
+
+      document.getElementById("rbacOutput").textContent =
+        JSON.stringify(result.rb, null, 2);
+
+      document.getElementById("diagramOutput").textContent =
+        JSON.stringify(result.diagram, null, 2);
     });
   </script>
+
 </body>
 </html>
