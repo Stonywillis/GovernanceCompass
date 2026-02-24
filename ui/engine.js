@@ -1,6 +1,6 @@
 // MANAGEMENT GROUP ENGINE
 async function evaluateGovernance(inputs) {
-  const response = await fetch('/logic/rules.json');
+  const response = await fetch('/rules.json');
   const rules = await response.json();
 
   const matchedStructures = [];
@@ -41,7 +41,7 @@ async function evaluateGovernance(inputs) {
 
 // POLICY BUNDLE ENGINE
 async function evaluatePolicyBundles(inputs) {
-  const response = await fetch('/logic/rules.json');
+  const response = await fetch('/rules.json');
   const rules = await response.json();
 
   const matchedBundles = [];
@@ -85,7 +85,7 @@ async function evaluatePolicyBundles(inputs) {
 
 // RBAC PATTERN ENGINE
 async function evaluateRBACPatterns(inputs) {
-  const response = await fetch('/logic/rules.json');
+  const response = await fetch('/rules.json');
   const rules = await response.json();
 
   const matchedPatterns = [];
