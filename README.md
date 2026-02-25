@@ -1,4 +1,4 @@
-Governance Compass — README (Full Draft)
+Governance Compass — README 
 Purpose
 Governance Compass is a hands‑on, scenario‑driven guide to Azure governance. It translates abstract concepts like management groups, RBAC, policy, and resource organization into clear, repeatable patterns you can use in real environments. The goal is to help engineers move from “I know the terms” to “I can design and justify a governance model.”
 What This Project Solves
